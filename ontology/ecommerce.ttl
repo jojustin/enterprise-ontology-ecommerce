@@ -1,0 +1,86 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.com/ecommerce/containsProduct> a owl:ObjectProperty ;
+    rdfs:label "containsProduct" ;
+    rdfs:domain <http://example.com/ecommerce/Order> ;
+    rdfs:range <http://example.com/ecommerce/Product> ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+<http://example.com/ecommerce/customerEmail> a owl:DatatypeProperty ;
+    rdfs:label "customerEmail" ;
+    rdfs:domain <http://example.com/ecommerce/Customer> ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+<http://example.com/ecommerce/customerName> a owl:DatatypeProperty ;
+    rdfs:label "customerName" ;
+    rdfs:domain <http://example.com/ecommerce/Customer> ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+<http://example.com/ecommerce/hasPayment> a owl:ObjectProperty ;
+    rdfs:label "hasPayment" ;
+    rdfs:domain <http://example.com/ecommerce/Order> ;
+    rdfs:range <http://example.com/ecommerce/Payment> ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+<http://example.com/ecommerce/orderDate> a owl:DatatypeProperty ;
+    rdfs:label "orderDate" ;
+    rdfs:domain <http://example.com/ecommerce/Order> ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+<http://example.com/ecommerce/orderStatus> a owl:DatatypeProperty ;
+    rdfs:label "orderStatus" ;
+    rdfs:domain <http://example.com/ecommerce/Order> ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+<http://example.com/ecommerce/paymentAmount> a owl:DatatypeProperty ;
+    rdfs:label "paymentAmount" ;
+    rdfs:domain <http://example.com/ecommerce/Payment> ;
+    rdfs:range xsd:decimal ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+<http://example.com/ecommerce/paymentStatus> a owl:DatatypeProperty ;
+    rdfs:label "paymentStatus" ;
+    rdfs:domain <http://example.com/ecommerce/Payment> ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+<http://example.com/ecommerce/placesOrder> a owl:ObjectProperty ;
+    rdfs:label "placesOrder" ;
+    rdfs:domain <http://example.com/ecommerce/Customer> ;
+    rdfs:range <http://example.com/ecommerce/Order> ;
+    rdfs:subPropertyOf owl:topObjectProperty .
+
+<http://example.com/ecommerce/productName> a owl:DatatypeProperty ;
+    rdfs:label "productName" ;
+    rdfs:domain <http://example.com/ecommerce/Product> ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+<http://example.com/ecommerce/productPrice> a owl:DatatypeProperty ;
+    rdfs:label "productPrice" ;
+    rdfs:domain <http://example.com/ecommerce/Product> ;
+    rdfs:range xsd:decimal ;
+    rdfs:subPropertyOf owl:topDataProperty .
+
+<urn:webprotege:ontology:017334a7-4d4f-433e-9f0a-e7943d2294b4> a owl:Ontology .
+
+<http://example.com/ecommerce/Customer> a owl:Class ;
+    rdfs:label "Customer" .
+
+<http://example.com/ecommerce/Payment> a owl:Class ;
+    rdfs:label "Payment" .
+
+<http://example.com/ecommerce/Product> a owl:Class ;
+    rdfs:label "Product" ;
+    rdfs:subClassOf owl:Thing .
+
+<http://example.com/ecommerce/Order> a owl:Class ;
+    rdfs:label "Order" ;
+    rdfs:subClassOf owl:Thing .
+

@@ -1,0 +1,171 @@
+@prefix : <urn:webprotege:ontology:017334a7-4d4f-433e-9f0a-e7943d2294b4#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <urn:webprotege:ontology:017334a7-4d4f-433e-9f0a-e7943d2294b4> .
+
+<urn:webprotege:ontology:017334a7-4d4f-433e-9f0a-e7943d2294b4> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://example.com/ecommerce/containsProduct
+<http://example.com/ecommerce/containsProduct> rdf:type owl:ObjectProperty ;
+                                               rdfs:subPropertyOf owl:topObjectProperty ;
+                                               rdfs:domain <http://example.com/ecommerce/Order> ;
+                                               rdfs:range <http://example.com/ecommerce/Product> ;
+                                               rdfs:label "containsProduct" .
+
+
+###  http://example.com/ecommerce/hasPayment
+<http://example.com/ecommerce/hasPayment> rdf:type owl:ObjectProperty ;
+                                          rdfs:subPropertyOf owl:topObjectProperty ;
+                                          rdfs:domain <http://example.com/ecommerce/Order> ;
+                                          rdfs:range <http://example.com/ecommerce/Payment> ;
+                                          rdfs:label "hasPayment" .
+
+
+###  http://example.com/ecommerce/placesOrder
+<http://example.com/ecommerce/placesOrder> rdf:type owl:ObjectProperty ;
+                                           rdfs:subPropertyOf owl:topObjectProperty ;
+                                           rdfs:domain <http://example.com/ecommerce/Customer> ;
+                                           rdfs:range <http://example.com/ecommerce/Order> ;
+                                           rdfs:label "placesOrder" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://example.com/ecommerce/customerEmail
+<http://example.com/ecommerce/customerEmail> rdf:type owl:DatatypeProperty ;
+                                             rdfs:subPropertyOf owl:topDataProperty ;
+                                             rdfs:domain <http://example.com/ecommerce/Customer> ;
+                                             rdfs:range xsd:string ;
+                                             rdfs:label "customerEmail" .
+
+
+###  http://example.com/ecommerce/customerName
+<http://example.com/ecommerce/customerName> rdf:type owl:DatatypeProperty ;
+                                            rdfs:subPropertyOf owl:topDataProperty ;
+                                            rdfs:domain <http://example.com/ecommerce/Customer> ;
+                                            rdfs:range xsd:string ;
+                                            rdfs:label "customerName" .
+
+
+###  http://example.com/ecommerce/orderDate
+<http://example.com/ecommerce/orderDate> rdf:type owl:DatatypeProperty ;
+                                         rdfs:subPropertyOf owl:topDataProperty ;
+                                         rdfs:domain <http://example.com/ecommerce/Order> ;
+                                         rdfs:range xsd:dateTime ;
+                                         rdfs:label "orderDate" .
+
+
+###  http://example.com/ecommerce/orderStatus
+<http://example.com/ecommerce/orderStatus> rdf:type owl:DatatypeProperty ;
+                                           rdfs:subPropertyOf owl:topDataProperty ;
+                                           rdfs:domain <http://example.com/ecommerce/Order> ;
+                                           rdfs:range xsd:string ;
+                                           rdfs:label "orderStatus" .
+
+
+###  http://example.com/ecommerce/paymentAmount
+<http://example.com/ecommerce/paymentAmount> rdf:type owl:DatatypeProperty ;
+                                             rdfs:subPropertyOf owl:topDataProperty ;
+                                             rdfs:domain <http://example.com/ecommerce/Payment> ;
+                                             rdfs:range xsd:decimal ;
+                                             rdfs:label "paymentAmount" .
+
+
+###  http://example.com/ecommerce/paymentStatus
+<http://example.com/ecommerce/paymentStatus> rdf:type owl:DatatypeProperty ;
+                                             rdfs:subPropertyOf owl:topDataProperty ;
+                                             rdfs:domain <http://example.com/ecommerce/Payment> ;
+                                             rdfs:range xsd:string ;
+                                             rdfs:label "paymentStatus" .
+
+
+###  http://example.com/ecommerce/productName
+<http://example.com/ecommerce/productName> rdf:type owl:DatatypeProperty ;
+                                           rdfs:subPropertyOf owl:topDataProperty ;
+                                           rdfs:domain <http://example.com/ecommerce/Product> ;
+                                           rdfs:range xsd:string ;
+                                           rdfs:label "productName" .
+
+
+###  http://example.com/ecommerce/productPrice
+<http://example.com/ecommerce/productPrice> rdf:type owl:DatatypeProperty ;
+                                            rdfs:subPropertyOf owl:topDataProperty ;
+                                            rdfs:domain <http://example.com/ecommerce/Product> ;
+                                            rdfs:range xsd:decimal ;
+                                            rdfs:label "productPrice" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://example.com/ecommerce/Customer
+<http://example.com/ecommerce/Customer> rdf:type owl:Class ;
+                                        rdfs:label "Customer" .
+
+
+###  http://example.com/ecommerce/Order
+<http://example.com/ecommerce/Order> rdf:type owl:Class ;
+                                     rdfs:subClassOf owl:Thing ;
+                                     rdfs:label "Order" .
+
+
+###  http://example.com/ecommerce/Payment
+<http://example.com/ecommerce/Payment> rdf:type owl:Class ;
+                                       rdfs:label "Payment" .
+
+
+###  http://example.com/ecommerce/Product
+<http://example.com/ecommerce/Product> rdf:type owl:Class ;
+                                       rdfs:subClassOf owl:Thing ;
+                                       rdfs:label "Product" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://example.com/ecommerce/Customer101
+<http://example.com/ecommerce/Customer101> rdf:type owl:NamedIndividual ,
+                                                    <http://example.com/ecommerce/Customer> ;
+                                           <http://example.com/ecommerce/placesOrder> <http://example.com/ecommerce/Order101> ;
+                                           <http://example.com/ecommerce/customerEmail> "john@example.com"^^xsd:string ;
+                                           <http://example.com/ecommerce/customerName> "customerEmail"^^xsd:string ;
+                                           rdfs:label "Customer101" .
+
+
+###  http://example.com/ecommerce/Order101
+<http://example.com/ecommerce/Order101> rdf:type owl:NamedIndividual ,
+                                                 <http://example.com/ecommerce/Order> ;
+                                        <http://example.com/ecommerce/containsProduct> <http://example.com/ecommerce/Product101> ;
+                                        <http://example.com/ecommerce/hasPayment> <http://example.com/ecommerce/Payment101> ;
+                                        <http://example.com/ecommerce/orderStatus> "Confirmed"^^xsd:string ;
+                                        rdfs:label "Order101" .
+
+
+###  http://example.com/ecommerce/Payment101
+<http://example.com/ecommerce/Payment101> rdf:type owl:NamedIndividual ,
+                                                   <http://example.com/ecommerce/Payment> ;
+                                          <http://example.com/ecommerce/paymentAmount> 75000.00 ;
+                                          <http://example.com/ecommerce/paymentStatus> "Completed"^^xsd:string ;
+                                          rdfs:label "Payment101" .
+
+
+###  http://example.com/ecommerce/Product101
+<http://example.com/ecommerce/Product101> rdf:type owl:NamedIndividual ,
+                                                   <http://example.com/ecommerce/Product> ;
+                                          <http://example.com/ecommerce/productName> "Laptop"^^xsd:string ;
+                                          <http://example.com/ecommerce/productPrice> 75000.00 ;
+                                          rdfs:label "Product101" .
+
+
+###  Generated by the OWL API (version 4.5.13) https://github.com/owlcs/owlapi

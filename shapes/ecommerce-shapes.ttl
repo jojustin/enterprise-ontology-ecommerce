@@ -1,0 +1,62 @@
+@prefix ex: <http://example.com/ecommerce/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+ex:CustomerShape
+    a sh:NodeShape ;
+    sh:targetClass ex:Customer ;
+    sh:property [
+        sh:path ex:customerName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path ex:customerEmail ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 
+    ] .
+
+ex:ProductShape
+    a sh:NodeShape ;
+    sh:targetClass ex:Product ;
+    sh:property [
+        sh:path ex:productName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 
+    ] ;
+    sh:property [
+        sh:path ex:productPrice ;
+        sh:datatype xsd:decimal ;
+        sh:minCount 1 ;
+        sh:minInclusive 0
+    ] .
+
+ex:OrderShape
+    a sh:NodeShape ;
+    sh:targetClass ex:Order ;
+    sh:property [
+        sh:path ex:containsProduct ;
+        sh:class ex:Product ;
+        sh:minCount 1 
+    ] ;
+    sh:hasPayment [
+        sh:path ex:hasPayment ;
+        sh:class ex:Payment ;
+        sh:minCount 1 ;
+        sh:maxCount 1 
+    ] .
+
+ ex:PaymentShape
+    a sh:NodeShape ;
+    sh:targetClass ex:Payment ;
+    sh:property [
+        sh:path ex:paymentAmount ;
+        sh:datatype xsd:decimal ; 
+        sh:minInclusive 0 ;
+        sh:minCount 1 
+    ] ;
+    sh:hasPayment [
+        sh:path ex:paymentStatus ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 
+    ] .
+

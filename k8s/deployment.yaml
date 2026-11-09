@@ -1,0 +1,200 @@
+# ============================================================
+# E-COMMERCE ONTOLOGY - KUBERNETES DEPLOYMENT
+#
+# Cluster: ontology
+# Namespace: default
+#
+# Components:
+#   1. Fuseki persistent storage
+#   2. Fuseki Deployment
+#   3. Fuseki Service
+#   4. FastAPI Deployment
+#   5. FastAPI Service
+# ============================================================
+
+# ============================================================
+# 1. FUSEKI PERSISTENT VOLUME CLAIM
+# ============================================================
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fuseki-data
+  labels:
+    app: fuseki
+
+spec:
+  accessModes:
+    - ReadWriteOnce
+
+  resources:
+    requests:
+      storage: 1Gi
+
+
+---
+
+# ============================================================
+# 2. APACHE JENA FUSEKI DEPLOYMENT
+# ============================================================
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: fuseki
+  labels:
+    app: fuseki
+
+spec:
+  replicas: 1
+
+  strategy:
+    type: Recreate
+
+  selector:
+    matchLabels:
+      app: fuseki
+
+  template:
+    metadata:
+      labels:
+        app: fuseki
+
+    spec:
+      containers:
+        - name: fuseki
+
+          image: localhost/fuseki:local
+          imagePullPolicy: Never
+
+          ports:
+            - name: http
+              containerPort: 3030
+              protocol: TCP
+
+          # Mount storage separately from Fuseki libraries.
+          volumeMounts:
+            - name: fuseki-storage
+              mountPath: /fuseki-data
+
+          # Startup probe
+          startupProbe:
+            tcpSocket:
+              port: 3030
+            periodSeconds: 5
+            failureThreshold: 30
+
+          # Readiness probe
+          readinessProbe:
+            tcpSocket:
+              port: 3030
+            periodSeconds: 10
+
+          # Liveness probe
+          livenessProbe:
+            tcpSocket:
+              port: 3030
+            periodSeconds: 20
+            failureThreshold: 3
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+
+      volumes:
+        - name: fuseki-storage
+          persistentVolumeClaim:
+            claimName: fuseki-data
+
+
+---
+# ============================================================
+# 3. FUSEKI SERVICE
+# ============================================================
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fuseki
+spec:
+  type: ClusterIP
+  selector:
+    app: fuseki
+  ports:
+    - name: http
+      port: 3030
+      targetPort: 3030
+
+---
+# ============================================================
+# 4. E-COMMERCE ONTOLOGY FASTAPI DEPLOYMENT
+# ============================================================
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-api
+  labels:
+    app: shop-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop-api
+  template:
+    metadata:
+      labels:
+        app: shop-api
+    spec:
+      containers:
+        - name: shop-api
+          image: localhost/ecommerce-ontology-api:local
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 8000
+
+          env:
+            - name: FUSEKI_URL
+              value: "http://fuseki:3030"
+
+            - name: FUSEKI_DATASET
+              value: "ecommerce"
+
+            - name: FUSEKI_USER
+              value: "admin"
+
+            - name: FUSEKI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fuseki-auth
+                  key: ADMIN_PASSWORD
+
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+---
+# ============================================================
+# 5. FASTAPI SERVICE
+# ============================================================
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: shop-api
+spec:
+  type: ClusterIP
+  selector:
+    app: shop-api
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
