@@ -35,17 +35,23 @@ python -m pip install -r requirements.txt
 ### Create the Ontology using WebPortege
 
 Use [Webprotege](https://webprotege.stanford.edu/) to create the ontology.  
-* This picture illustrates the ontology modeling workflow followed in this tutorial. We begin by identifying business concepts, define the corresponding OWL classes and properties, establish semantic relationships, assign consistent IRIs, and use Protégé to construct and export the ontology. <img src="./images/ontologyModelWorkflow.png" width="300" />
+* This picture illustrates the ontology modeling workflow followed in this tutorial. We begin by identifying business concepts, define the corresponding OWL classes and properties, establish semantic relationships, assign consistent IRIs, and use Protégé to construct and export the ontology. 
+<img src="./images/ontologyModelWorkflow.png" width="300" />
 
-* This picture presents the conceptual relationships between the primary e-commerce entities. The model includes customers, orders, order items, products, and payments. OrderItem provides a way to represent product quantities and prices associated with individual purchases. <img src="./images/relationship.png" width="300" />
+* This picture presents the conceptual relationships between the primary e-commerce entities. The model includes customers, orders, order items, products, and payments. OrderItem provides a way to represent product quantities and prices associated with individual purchases. 
+<img src="./images/relationship.png" width="300" />
 
-* Using Protégé, we create the core domain classes under owl:Thing. The Classes tab provides a hierarchical view of the ontology, allowing us to organize and inspect the business concepts defined in the model. <img src="./images/classHierarchy.png" width="300" /> 
+* Using Protégé, we create the core domain classes under owl:Thing. The Classes tab provides a hierarchical view of the ontology, allowing us to organize and inspect the business concepts defined in the model. 
+<img src="./images/classHierarchy.png" width="300" /> 
 
-* Object properties establish semantic relationships between individuals belonging to different classes. As shown in Figure 5, the placesOrder property connects instances of Customer to instances of Order through its declared domain and range. <img src="./images/objectProp.png" width="300" /> 
+* Object properties establish semantic relationships between individuals belonging to different classes. As shown in Figure 5, the placesOrder property connects instances of Customer to instances of Order through its declared domain and range. 
+<img src="./images/objectProp.png" width="300" /> 
 
-* Datatype properties represent literal attributes associated with ontology individuals. <img src="./images/dataProp.png" width="300" /> 
+* Datatype properties represent literal attributes associated with ontology individuals. 
+<img src="./images/dataProp.png" width="300" /> 
 
-* Define data / individuals for the defined relationship. <img src="./images/individuals.png" width="300" /> 
+* Define data / individuals for the defined relationship. 
+<img src="./images/individuals.png" width="300" /> 
 
 ### Export the Turtle
 Export as Turtle in WebProtégé and save as `ontology/ecommerce-combined.ttl`.
